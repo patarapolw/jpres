@@ -2,7 +2,7 @@ import { FastifyPluginAsync } from 'fastify'
 import S from 'jsonschema-definer'
 import Text2Speech from 'node-gtts'
 
-import { tokenizer } from '../util'
+import { kuroshiro, tokenizer } from '../util'
 
 const utilRouter: FastifyPluginAsync = async (f) => {
   {
@@ -33,6 +33,35 @@ const utilRouter: FastifyPluginAsync = async (f) => {
       async (req): Promise<typeof sResponse.type> => {
         return {
           result: tokenizer.tokenize(req.query.q),
+        }
+      }
+    )
+  }
+
+  {
+    const sQuery = S.shape({
+      q: S.string(),
+    })
+
+    const sResponse = S.shape({
+      result: S.string(),
+    })
+
+    f.get<{
+      Querystring: typeof sQuery.type
+    }>(
+      '/reading',
+      {
+        schema: {
+          querystring: sQuery.valueOf(),
+          response: {
+            200: sResponse.valueOf(),
+          },
+        },
+      },
+      async (req): Promise<typeof sResponse.type> => {
+        return {
+          result: await kuroshiro.convert(req.query.q),
         }
       }
     )

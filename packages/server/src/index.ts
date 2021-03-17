@@ -17,6 +17,10 @@ async function main() {
 
   app.register(apiRouter, { prefix: '/api' })
 
+  app.get('/', (_, reply) => {
+    reply.redirect('/api/doc')
+  })
+
   app.listen(
     port,
     process.env['NODE_ENV'] === 'development' ? 'localhost' : '0.0.0.0',

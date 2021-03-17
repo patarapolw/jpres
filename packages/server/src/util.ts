@@ -1,5 +1,3 @@
-import { promisify } from 'util'
-
 import kuromoji from 'kuromoji'
 import Kuroshiro from 'kuroshiro'
 import KuromojiAnalyzer from 'kuroshiro-analyzer-kuromoji'
@@ -26,11 +24,13 @@ export async function initKuromoji() {
     return tokenizer
   }
 
-  tokenizer = await promisify(
-    kuromoji.builder({
-      dicPath: './kuromoji.js/dict',
-    }).build
-  )()
+  tokenizer = await new Promise((resolve, reject) => {
+    kuromoji
+      .builder({
+        dicPath: './kuromoji.js/dict',
+      })
+      .build((err, t) => (err ? reject(err) : resolve(t)))
+  })
 
   return tokenizer
 }

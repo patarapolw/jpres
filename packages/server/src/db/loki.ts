@@ -1,5 +1,5 @@
-import FSStorage from '@lokidb/fs-storage'
-import FullTextSearch from '@lokidb/full-text-search'
+import { FSStorage } from '@lokidb/fs-storage'
+import { FullTextSearch } from '@lokidb/full-text-search'
 import FullTextSearchEn from '@lokidb/full-text-search-language-en'
 import Loki, { Collection } from '@lokidb/loki'
 import { katakanaToHiragana } from 'jskana'
@@ -22,7 +22,6 @@ export async function initDatabase(
      * @default './data.loki'
      */
     filename?: string
-    autosave?: boolean
   } = {}
 ) {
   const kuro = await initKuromoji()
@@ -30,7 +29,6 @@ export async function initDatabase(
   db = new Loki(opts.filename || './data.loki')
   await db.initializePersistence({
     adapter: new FSStorage(),
-    autosave: opts.autosave,
     autoload: true,
   })
 
