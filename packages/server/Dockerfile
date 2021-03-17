@@ -29,7 +29,7 @@ RUN curl -sSL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get install -y nodejs gcc g++ make
 
 RUN npm i -g yarn
-RUN apt-get install -y mecab-ipadic-utf8 python3 python3-pip
+RUN apt-get install -y mecab mecab-ipadic-utf8 python3 python3-pip
 RUN touch /usr/local/etc/mecabrc
 COPY requirements.txt ./
 RUN pip3 install -r requirements.txt

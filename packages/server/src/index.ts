@@ -1,10 +1,17 @@
 import fastify from 'fastify'
+import waitOn from 'wait-on'
 
 import apiRouter from './api'
 import { logger } from './logger'
+import { initDatabase } from './shared'
 import { initKuroshiro } from './util'
 
 async function main() {
+  await waitOn({
+    resources: ['tcp:5432'],
+  })
+
+  initDatabase()
   await initKuroshiro()
 
   const app = fastify({ logger })
