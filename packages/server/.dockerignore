@@ -2,9 +2,12 @@
 **
 
 # Allow files and directories
-!/init.d/
-!/scripts/
+!/assets/
+!/initdb.d/
+!/python/
 !/src/
+
+!/requirements.txt
 !/package.json
 !/tsconfig.json
 !/yarn.lock

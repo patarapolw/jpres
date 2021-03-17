@@ -1,12 +1,10 @@
 import fastify from 'fastify'
 
 import apiRouter from './api'
-import { initDatabase } from './db/loki'
 import { logger } from './logger'
 import { initKuroshiro } from './util'
 
 async function main() {
-  await initDatabase()
   await initKuroshiro()
 
   const app = fastify({ logger })

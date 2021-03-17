@@ -3,5 +3,6 @@
   "editor.formatOnSave": true,
   "files.associations": {
     "*.sql": "postgres"
-  }
+  },
+  "python.pythonPath": "/home/polv/.pyenv/shims/python"
 }

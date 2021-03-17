@@ -12,9 +12,8 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./node_modules:/app/node_modules
-      - ./init.d:/docker-entrypoint-initdb.d
-    entrypoint: |
-      /usr/local/bin/docker-entrypoint.sh postgres &
-      yarn dev
+    # entrypoint: |
+    #   /usr/local/bin/docker-entrypoint.sh postgres &
+    #   yarn dev
 volumes:
   pgdata:

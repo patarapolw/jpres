@@ -1,8 +1,6 @@
 import { FastifyPluginAsync } from 'fastify'
 import S from 'jsonschema-definer'
 
-import { dbSentence } from '../db/loki'
-
 const sentenceRouter: FastifyPluginAsync = async (f) => {
   {
     const sQuery = S.shape({
@@ -33,22 +31,10 @@ const sentenceRouter: FastifyPluginAsync = async (f) => {
           },
         },
       },
-      async (req): Promise<typeof sResponse.type> => {
-        const { q, offset = 0, limit = 5 } = req.query
-
-        const rs = dbSentence.find({
-          $fts: {
-            query: {
-              type: 'term',
-              field: 'ja',
-              value: q,
-            },
-          },
-        })
-
+      async (): Promise<typeof sResponse.type> => {
         return {
-          result: rs.slice(offset, offset + limit),
-          count: rs.length,
+          result: [],
+          count: 0,
         }
       }
     )
