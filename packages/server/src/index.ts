@@ -3,11 +3,10 @@ import fastify from 'fastify'
 import apiRouter from './api'
 import { initDatabase } from './db/loki'
 import { logger } from './logger'
-import { initKuromoji, initKuroshiro } from './util'
+import { initKuroshiro } from './util'
 
 async function main() {
   await initDatabase()
-  await initKuromoji()
   await initKuroshiro()
 
   const app = fastify({ logger })
@@ -21,15 +20,12 @@ async function main() {
     reply.redirect('/api/doc')
   })
 
-  app.listen(
-    port,
-    process.env['NODE_ENV'] === 'development' ? 'localhost' : '0.0.0.0',
-    (err) => {
-      if (err) {
-        throw err
-      }
+  app.listen(port, '0.0.0.0', (err) => {
+    if (err) {
+      throw err
     }
-  )
+    console.log(`Go to http://localhost:${port}`)
+  })
 }
 
 if (require.main === module) {

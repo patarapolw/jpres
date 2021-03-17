@@ -1,0 +1,20 @@
+services:
+  jpres:
+    build: .
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+      - PORT=14226
+    ports:
+      - 5433:5432
+      - 14226:14226
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./node_modules:/app/node_modules
+      - ./init.d:/docker-entrypoint-initdb.d
+    entrypoint: |
+      /usr/local/bin/docker-entrypoint.sh postgres &
+      yarn dev
+volumes:
+  pgdata:

@@ -3,8 +3,7 @@ import { FullTextSearch } from '@lokidb/full-text-search'
 import FullTextSearchEn from '@lokidb/full-text-search-language-en'
 import Loki, { Collection } from '@lokidb/loki'
 import { katakanaToHiragana } from 'jskana'
-
-import { initKuromoji } from '../util'
+import Mecab from 'mecab-async'
 
 FSStorage.register()
 FullTextSearch.register()
@@ -24,7 +23,7 @@ export async function initDatabase(
     filename?: string
   } = {}
 ) {
-  const kuro = await initKuromoji()
+  const mecab = new Mecab()
 
   db = new Loki(opts.filename || './data.loki')
   await db.initializePersistence({
@@ -40,9 +39,9 @@ export async function initDatabase(
           field: 'ja',
           analyzer: {
             tokenizer: (s) =>
-              kuro
-                .tokenize(s)
-                .flatMap((p) => [p.basic_form, p.surface_form, p.reading || ''])
+              mecab
+                .parseSyncFormat(s)
+                .flatMap((p) => [p.kanji, p.original, p.reading || ''])
                 .filter((t) => t)
                 .map((t) => katakanaToHiragana(t)),
           },

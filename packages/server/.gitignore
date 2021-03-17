@@ -150,3 +150,4 @@ dist
 /lib/
 /session.key
 /regex.txt
+/pgdata

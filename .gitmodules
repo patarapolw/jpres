@@ -1,3 +1,0 @@
-[submodule "packages/server/kuromoji.js"]
-	path = packages/server/kuromoji.js
-	url = https://github.com/takuyaa/kuromoji.js.git

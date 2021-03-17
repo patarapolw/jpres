@@ -1,0 +1,12 @@
+# Ignore everything
+**
+
+# Allow files and directories
+!/init.d/
+!/scripts/
+!/src/
+!/package.json
+!/tsconfig.json
+!/yarn.lock
+!/init.sh
+!/init-*.sh

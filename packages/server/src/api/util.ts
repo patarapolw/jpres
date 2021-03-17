@@ -1,11 +1,14 @@
 import { FastifyPluginAsync } from 'fastify'
 import S from 'jsonschema-definer'
+import Mecab from 'mecab-async'
 import Text2Speech from 'node-gtts'
 
-import { kuroshiro, tokenizer } from '../util'
+import { kuroshiro } from '../util'
 
 const utilRouter: FastifyPluginAsync = async (f) => {
   {
+    const mecab = new Mecab()
+
     const sQuery = S.shape({
       q: S.string(),
     })
@@ -13,7 +16,7 @@ const utilRouter: FastifyPluginAsync = async (f) => {
     const sResponse = S.shape({
       result: S.list(
         S.shape({
-          surface_form: S.string(),
+          // kanji: S.string(),
         }).additionalProperties(true)
       ),
     })
@@ -32,7 +35,7 @@ const utilRouter: FastifyPluginAsync = async (f) => {
       },
       async (req): Promise<typeof sResponse.type> => {
         return {
-          result: tokenizer.tokenize(req.query.q),
+          result: mecab.parseSyncFormat(req.query.q),
         }
       }
     )
