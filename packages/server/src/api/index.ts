@@ -5,6 +5,7 @@ import characterRouter from './character'
 import sentenceRouter from './sentence'
 import utilRouter from './util'
 import vocabularyRouter from './vocabulary'
+import wanikaniRouter from './wanikani'
 
 const apiRouter: FastifyPluginAsync = async (f) => {
   if (process.env['NODE_ENV'] === 'development') {
@@ -21,6 +22,7 @@ const apiRouter: FastifyPluginAsync = async (f) => {
   f.register(sentenceRouter, { prefix: '/sentence' })
   f.register(utilRouter, { prefix: '/util' })
   f.register(vocabularyRouter, { prefix: 'vocabulary' })
+  f.register(wanikaniRouter, { prefix: '/wanikani' })
 }
 
 export default apiRouter

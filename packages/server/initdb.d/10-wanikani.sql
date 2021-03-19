@@ -3,10 +3,10 @@ CREATE TABLE wanikani.subjects (
   "object"          TEXT NOT NULL,
   "data_updated_at" TEXT NOT NULL,
   "url"             TEXT NOT NULL,
-  "data"            JSONB NOT NULL,
-  PRIMARY KEY ("id")
+  "data"            JSONB NOT NULL
 );
 
+CREATE INDEX idx_subjects_id ON wanikani.subjects ("id");
 CREATE INDEX idx_subjects_object ON wanikani.subjects ("object");
 CREATE INDEX idx_subjects_data_updated_at ON wanikani.subjects ("data_updated_at");
 

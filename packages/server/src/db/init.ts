@@ -1,5 +1,4 @@
 import { initDatabase } from '../shared'
-import * as wk from './10-wanikani'
 import * as edict from './11-edict'
 import * as kanjidic from './12-kanjidic'
 import * as tatoeba from './13-tatoeba'
@@ -11,7 +10,6 @@ if (require.main === module) {
     const db = initDatabase()
 
     try {
-      await wk.populate(db)
       await edict.populate(db)
       await kanjidic.populate(db)
       await tatoeba.populate(db)

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@databases/pg": "^5.0.0",
+    "axios": "^0.21.1",
     "better-sqlite3": "^7.1.2",
     "dayjs": "^1.10.4",
     "fastify": "^3.14.0",
